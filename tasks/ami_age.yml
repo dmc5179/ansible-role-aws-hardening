@@ -5,17 +5,6 @@
     image_ids: '{{ item.image_id }}'
   register: my_image_ids
 
-#- debug:
-#    var: my_image_ids
-
-#- name: Current Time
-#  debug:
-#    msg: "Current time: {{ ansible_date_time.iso8601 }}"
-
-#- name: AMI Time
-#  debug:
-#    msg: "{{ my_image_ids.images[0].creation_date[:19] | to_datetime('%Y-%m-%dT%H:%M:%S')}}"
-
 - name: Check AMI Age
   debug:
     msg: "{{ my_image_ids.images[0].image_id }} is {{ (((ansible_date_time.iso8601[:19] | to_datetime('%Y-%m-%dT%H:%M:%S')) - (my_image_ids.images[0].creation_date[:19] | to_datetime('%Y-%m-%dT%H:%M:%S'))).total_seconds() / 86400) | int }} days old"
