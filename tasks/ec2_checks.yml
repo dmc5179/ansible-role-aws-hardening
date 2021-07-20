@@ -1,0 +1,9 @@
+---
+
+- name: Gather information about all instances
+  community.aws.ec2_instance_info:
+  register: ec2_instances
+
+- name: Check EC2 AMI Age
+  include_tasks: ami_age.yml
+  loop: "{{ ec2_instances.instances }}"
